@@ -4,23 +4,15 @@ import java.sql.*;
 
 public class App {
 
-    public static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-
-    public static final String DB_URL = "jdbc:mysql://127.0.0.1/rental_db?useSSL=false&serverTimezone=UTC";
-
-    public static final String USER = "root";
-    public static final String PASSWORD = "";
-
-
     public static void main(String[] args) {
 
-        Connection connection = null;
+        Connection connection = DBConnector.getConnection();
         Statement statement = null;
 
-        try {
 
-            Class.forName(JDBC_DRIVER);
-            connection = DriverManager.getConnection(DB_URL, USER, PASSWORD);
+
+        try  {
+
             statement = connection.createStatement();
 
             String sql = "select*from customer";
@@ -52,6 +44,10 @@ public class App {
             preparedStatement.setString(4,"9");
             preparedStatement.executeUpdate();
             */
+
+            String sqlUpdate = "UPDATE rental_db.car SET model='Corsa' WHERE reg_number='SL 23457';\n";
+            statement.executeUpdate(sqlUpdate);
+
 
 
         } catch (Exception e) {
